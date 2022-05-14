@@ -31,7 +31,7 @@ class VotesController extends Controller
     {
         $results = Votes::join('nominee', 'nominee.id_nominee', 'vote.id_nominee')
             ->select(
-                DB::raw("CONCAT(('nominee.name_nominee'),('nominee.last_name_nominee')) AS names"),
+                (DB::raw("CONCAT(('nominee.name_nominee'),('nominee.last_name_nominee')) AS names")),
                 (DB::raw('COUNT(vote.id_nominee) as result'))
             )
             ->where('vote.id_category', '=', $id)
