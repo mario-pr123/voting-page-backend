@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Votes;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class VotesController extends Controller
 {
@@ -25,5 +26,14 @@ class VotesController extends Controller
             $vote->save();
             return response()->json("Has votado exitosamente", 201);
         }
+    }
+    public function results($id)
+    {
+        $results = Votes::join('nominee', 'nominee.id_nominee', 'vote.id_nominee')
+            ->select(("nominee.name_nominee"), ("nominee.last_name_nominee"), (DB::raw('COUNT(vote.id_nominee) as result')))
+            ->where('vote.id_category', '=', $id)
+            ->groupBy("nominee.name_nominee", "nominee.last_name_nominee")
+            ->get();
+        return response()->json($results, 201);
     }
 }

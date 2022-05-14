@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('categories/{id}', [CategoriesController::class, 'show']);
 Route::get('cats/{id}', [CategoriesController::class, 'showCat']);
 Route::get('category/{id}', [CategoryController::class, 'index']);
+Route::get('category', [CategoryController::class, 'show']);
 Route::post('vote', [VotesController::class, 'store']);
-Route::post('voteCount', [VotesController::class, 'indexVotes']);
+Route::get('results/{id}', [VotesController::class, 'results']);
 Route::get('type', [TypeController::class, 'index']);

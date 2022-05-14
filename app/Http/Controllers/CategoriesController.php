@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
-use App\Models\Category;
-use App\Models\Nominee;
-use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
@@ -23,8 +20,8 @@ class CategoriesController extends Controller
     public function showCat($id)
     {
         $cat = Categories::join('category', 'category.id_category', 'categories.id_category')
-            ->select(("category.id_category"), ("category.name_category"),("category.desc_cat"))
-            ->groupBy("category.name_category", "category.id_category","category.desc_cat")
+            ->select(("category.id_category"), ("category.name_category"), ("category.desc_cat"))
+            ->groupBy("category.name_category", "category.id_category", "category.desc_cat")
             ->where('categories.id_category', '=', $id)->get();
         return response()->json($cat, 201);
     }

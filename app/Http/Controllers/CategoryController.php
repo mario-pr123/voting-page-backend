@@ -11,4 +11,8 @@ class CategoryController extends Controller
     {
         return Category::where('id_type', '=', $id)->get();
     }
+    public function show()
+    {
+        return Category::all();
+    }
 }
